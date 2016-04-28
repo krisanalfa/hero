@@ -13,6 +13,7 @@ use Zend\Diactoros\Response as PsrResponse;
 use Symfony\Component\Debug\ExceptionHandler;
 use Illuminate\Config\Repository as ConfigRepository;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class Application extends Container
 {
@@ -125,23 +126,28 @@ class Application extends Container
     public function run()
     {
         try {
-            return $this
+            $response = $this
                 ->make('router')
-                ->dispatch($this->make('request'))
-                ->send();
+                ->dispatch($this->make('request'));
+
+            if ($response instanceof SymfonyResponse) {
+                $response->send();
+            } else {
+                echo (string) $response;
+            }
         } catch (Exception $e) {
             $handler = new Handler();
 
-            return $handler->handle($e);
+            $handler->handle($e);
         }
     }
 
     /**
      * Register a service provider with the application.
      *
-     * @param \Illuminate\Support\ServiceProvider|string $provider
-     * @param array                                      $options
-     * @param bool                                       $force
+     * @param string $provider
+     * @param array  $options
+     * @param bool   $force
      */
     public function register($provider, $options = [], $force = false)
     {
@@ -206,7 +212,7 @@ class Application extends Container
      */
     public function configure($name)
     {
-        if (isset($this->loadedConfigurations[$name])) {
+        if (array_key_exists($name, $this->loadedConfigurations)) {
             return;
         }
 
