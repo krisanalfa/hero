@@ -1,0 +1,14 @@
+{
+  "name": "hero",
+  "authors": [
+    "Krisan Alfa Timur <krisan47@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "roboto": "FontFaceKit/roboto#^1.1.0",
+    "material-design-lite": "^1.1.3",
+    "SpinKit": "spinkit#^1.2.5",
+    "animate.css": "^3.5.1"
+  }
+}

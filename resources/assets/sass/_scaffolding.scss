@@ -1,0 +1,7 @@
+a,
+button,
+[role=button] {
+  &:focus {
+    outline: none;
+  }
+}
