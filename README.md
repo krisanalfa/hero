@@ -19,7 +19,7 @@ Hero works almost like Laravel but in `minified source` as it only contains:
 Follow this simple guide to use Hero as your application skeleton.
 
 ```sh
-composer install krisanalfa/hero my-app --prefer-dist
+composer create-project krisanalfa/hero my-app --prefer-dist
 cd my-app
 
 # below is used when you want to see a landing page of Hero
